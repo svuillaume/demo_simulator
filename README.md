@@ -2,7 +2,8 @@
 
 This demo simulates various types of attacks within your **own VPC environment**. It includes Compromise Host (LW Composite alert), Remote Command Execution, XSS, IP Spoofing, and simulates known bad IP behavior. **This is only for educational and demonstration purposes only.**
 
-![image](https://github.com/user-attachments/assets/16d33c34-aa16-4880-8544-c2d1c8d113e6)
+![image](https://github.com/user-attachments/assets/10402fa0-0c8f-4911-a89b-4795f1ff6b81)
+
 
 > ⚠️ **IMPORTANT:** All tests must be run within your **own VPC lab environment**. 
 
