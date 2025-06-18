@@ -163,4 +163,17 @@ curl -H "X-Forwarded-For: 1.2.3.4" http://<victim_IP>:5000/client-ip
 
 Happy testing — use responsibly in isolated environments.
 
+---
 
+### Socat and NetCat Clean up
+
+***On Attacker VM***
+
+```bash
+lsof -i -n -P | grep nc | awk '{print $2}' | sort -u | xargs -r kill -9
+```
+
+***On Victim VM***
+```bash
+lsof -i -n -P | grep socat | awk '{print $2}' | sort -u | xargs -r kill -9
+```
