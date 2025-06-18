@@ -12,7 +12,10 @@ This demo simulates various types of attacks within your **own VPC environment**
 ## 🛠️ Preparations
 
 ### Git Clone the Demo Simulator repo
+
+```
 git clone https://github.com/svuillaume/demo_simulator
+```
 
 ### 1. Launch Two VMs with Public IP assigned
 - **Attacker VM**
