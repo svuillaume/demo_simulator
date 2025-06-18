@@ -9,6 +9,8 @@ This demo simulates various types of attacks within your **own VPC environment**
 
 ## 🛠️ Preparations
 
+git clone https://github.com/svuillaume/demo_simulator
+
 ### 1. Launch Two VMs
 - **Attacker VM**
 - **Victim VM**
@@ -18,11 +20,6 @@ This demo simulates various types of attacks within your **own VPC environment**
 ## 🧰 Attacker VM Setup
 
 1. **Install Docker**
-
-2. **Download k6 script**
-   ```bash
-   git clone https://github.com/svuillaume/demo_simulator
-   ```
 
 ---
 
@@ -35,31 +32,23 @@ This demo simulates various types of attacks within your **own VPC environment**
    pip3 install flask
    ```
 
-2. **Run Flask application**
+2. **Set up the attack simulation script**
    ```bash
-   git clone https://github.com/svuillaume/docker_scan
-   cd docker_scan
-   python3 app.py
-   ```
-
-3. **Download attack simulation script**
-   ```bash
-   git clone https://github.com/svuillaume/demo_simulator
    chmod +x demo_simulator/lw_attack_sim.sh
    ```
 
-4. **Update crypto pools in the script**  
+3. **Update crypto pools in the script**  
    Use custom pool URLs:
    - `evil.v2.xmrig.com`
    - `donate.v2.xmrig.com`
 
-5. **Edit `/etc/hosts` to redirect mining pools to attacker**
+4. **Edit `/etc/hosts` to redirect mining pools to attacker**
    ```plaintext
    127.0.0.1 localhost
    <Attacker-IP> donate.v2.xmrig.com
    ```
 
-6. **Run the Flask application**
+5. **Run the Flask application**
    ```bash
    python3 app.py
    ```
@@ -68,16 +57,20 @@ This demo simulates various types of attacks within your **own VPC environment**
 
 ## ▶️ Running the Simulation
 
-### On the Attacker VM
+### On the Attacker VM (Open 2 Terminals or use screen)
 
-**Run traffic simulation with k6:**
-```bash
-sudo docker run --rm -v $(pwd):/scripts grafana/k6 run /scripts/k6.js
-```
+sudo apt install screen    # Debian/Ubuntu
+sudo yum install screen    # RHEL/CentOS
 
-**Create a persistent socket listener:**
+
+**Create a persistent socket listener on Terminal 1 or screen 1:**
 ```bash
 nc -k -l 3333 &
+```
+
+**Run traffic simulation with k6 on Terminal 2 or screen 2:**
+```bash
+sudo docker run --rm -v $(pwd):/scripts grafana/k6 run /scripts/k6.js
 ```
 
 ---
