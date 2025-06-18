@@ -23,7 +23,14 @@ Run ls -la
 💬 Reflected XSS
 Test the greeting endpoint for XSS:
 
-Greeting
+/greet
+
+The browser runs the attacker's script
+It could steal cookies, log keystrokes, redirect users, etc.
+
+Try the following:
+/greet?name=<script>alert('GotYou :) !')</script>
+
 
 🌐 Client IP Logging
 Get the client IP address based on headers:
