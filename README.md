@@ -2,6 +2,9 @@
 
 This demo simulates various types of attacks within your **own VPC environment**. It includes Remote Command Execution, Reflected XSS, IP Spoofing, and simulates known bad IP behavior. **For educational and demonstration purposes only.**
 
+![image](https://github.com/user-attachments/assets/16d33c34-aa16-4880-8544-c2d1c8d113e6)
+
+
 ---
 
 ## 🛠️ Preparations
