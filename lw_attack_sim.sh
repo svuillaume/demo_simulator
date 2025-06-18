@@ -97,5 +97,3 @@ add_privileged_users
 run_base64_payload
 sleep 600
 cleanup_simulation
-sleep 1
-echo "Host cleanup done"
