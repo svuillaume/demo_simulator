@@ -20,6 +20,7 @@ git clone https://github.com/svuillaume/demo_simulator
 ## 🧰 Attacker VM Setup
 
 1. **Install Docker**
+2. **Deploy Lacework Agent**
 
 ---
 
