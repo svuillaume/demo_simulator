@@ -94,7 +94,6 @@ cleanup_simulation() {
 
 download_xmrig
 add_privileged_users
-simulate_c2_connection
 run_base64_payload
 sleep 600
 cleanup_simulation
