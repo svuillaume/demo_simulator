@@ -87,6 +87,9 @@ sudo docker run --rm -v $(pwd):/scripts grafana/k6 run /scripts/k6.js
 
 ## 🚀 HOWTO Use the Demo
 
+
+On the Attacker VM, run K6.js and owasp_attack.sh
+
 > ⚠️ **IMPORTANT:** All tests must be run within your **own VPC lab environment**.
 
 ### 🔓 Remote Command Execution (RCE)
