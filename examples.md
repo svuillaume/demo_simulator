@@ -21,8 +21,10 @@ cat /etc/hosts
 **Sample Output:**
 ```
 127.0.0.1 localhost
-172.31.28.30 donate.v2.xmrig.com
+"Fake Crypto Pool IP" donate.v2.xmrig.com
 ```
+***Default developer donation mining pool (1% stake)***
+***you can use evil.v2.xmrig.com***
 
 ---
 
