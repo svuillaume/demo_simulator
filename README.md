@@ -209,4 +209,5 @@ lsof -i -n -P | grep nc | awk '{print $2}' | sort -u | xargs -r kill -9
 
 ```
 lsof -i -n -P | grep socat | awk '{print $2}' | sort -u | xargs -r kill -9
+ps -p 175610 -o etime,cmd
 ```
