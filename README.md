@@ -32,7 +32,14 @@ Note: The above are intended for Lacework to detect these VM "Internet Exposure"
 
 1. **Install Docker**
 2. **Deploy Lacework Agent**
-
+3. **Create a new user**
+```
+sudo adduser attacker / pwd: attacker12345!**
+```
+5. **Optional
+```
+sudo usermod -aG sudo newusername**
+```
 ---
 
 ## Victim VM Setup
@@ -40,6 +47,7 @@ Note: The above are intended for Lacework to detect these VM "Internet Exposure"
 1. **Install dependencies**
    ```
    sudo apt update
+   sudo apt install sshpass
    sudo apt install python3 python3-pip -y
    pip3 install flask
    ```
