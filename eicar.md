@@ -10,6 +10,7 @@ Run the following command to create an Alpine container and generate the EICAR t
 
 ```
 sudo docker run -dit --name eicar-test alpine /bin/sh -c 'echo "X5O!P%@AP[4\\PZX54(P^)7CC)7}\$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!\$H+H*" > /tmp/eicar.txt && sleep 600'
+```
 
 ```
 sudo docker exec -it eicar-test cat /tmp/eicar.txt
