@@ -115,6 +115,11 @@ sudo docker run --rm -v $(pwd):/scripts grafana/k6 run /scripts/k6.js
 ```
 python3 reverse_shell.py
 ```
+
+```
+ strace -f -e execve python3 reverse_shell.py
+```
+
 ---
 
 # HOWTO run the Demo
