@@ -81,22 +81,27 @@ sudo usermod -aG sudo newusername**
 
 ## On the Attacker VM (Open 2 Terminals or use screen)
 
-1. **Create a persistent socket listener on Terminal 1 or screen 1:**
+1. **Create a socat logger:**
 
 ```
-nc -k -l 3333 &
+#!/bin/bash
+awk '{ print strftime("%Y-%m-%d %H:%M:%S"), $0; fflush(); }' | tee -a /tmp/socat.log
+# save to /tmp/socat-logger.sh
 ```
 
-2. **Create a new socat tcp listener on tcp 5555**
+2. **Create a socat socket:**
 
 ```
- nc -lvnp 4444
+socat TCP-LISTEN:4444,reuseaddr,fork SYSTEM:/tmp/socat-logger.sh
 ```
 
 3. **Test tcp socket**
 
 ```
  nc -vz x.x.x.x 4444
+OR
+ nc x.x.x.x 4444
+ {inut any words}
 ```
 3. **Optionally run traffic simulation with k6 on Terminal 2 or screen 2:**
 
