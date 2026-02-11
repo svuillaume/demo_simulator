@@ -92,7 +92,12 @@ nc -k -l 3333 &
 ```
  nc -lvnp 4444
 ```
- 
+
+3. **Test tcp socket**
+
+```
+ nc -vz x.x.x.x 4444
+```
 3. **Optionally run traffic simulation with k6 on Terminal 2 or screen 2:**
 
 ```
