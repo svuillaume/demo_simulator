@@ -1,3 +1,7 @@
+export HISTTIMEFORMAT="%F %T "
+history
+
+
 **Install hydra**
 sudo apt update
 sudo apt install hydra -y
