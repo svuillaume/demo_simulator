@@ -81,6 +81,10 @@ sudo usermod -aG sudo newusername**
 
 ## On the Attacker VM (Open 2 Terminals or use tmux | screen)
 
+```
+In a standard remote shell attack, attackers connect a machine they control to the target’s remote network host, requesting a shell session. This tactic is known as a bind shell. Attackers can use a reverse shell if a remote host is not publicly accessible (i.e., due to firewall protection or a non-public IP). The target machine initiates the outgoing connection in a reverse shell attack and establishes the shell session with the listening network host.
+```
+
 1. **Create a socat logger:**
 
 ```
