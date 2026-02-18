@@ -142,6 +142,13 @@ done
 sudo bash fim.sh
 ```
 
+
+##safe cryptop mining
+
+```
+./xmrig --donate-level 0 --bench=10
+```
+
 ### AV test (The EICAR test file is a harmless standard string used to verify that antivirus software is working. It’s not malware, but most AV engines will detect and block it as if it were a virus.)
 
 ```
