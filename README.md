@@ -128,6 +128,21 @@ python3 reverse_shell.py
  strace -f -e execve python3 reverse_shell.py
 ```
 
+### fim test
+
+```
+fim.sh 
+while true; do
+  echo "$(date)" >> /etc/fim_test.conf
+  sleep 5
+done
+```
+
+```
+sudo bash fim.sh
+```
+
+
 ---
 
 # HOWTO run the Demo
