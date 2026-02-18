@@ -142,7 +142,11 @@ done
 sudo bash fim.sh
 ```
 
+### AV test (The EICAR test file is a harmless standard string used to verify that antivirus software is working. It’s not malware, but most AV engines will detect and block it as if it were a virus.)
 
+```
+echo 'X5O!P%@AP[4\PZX54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*' > eicar.com
+```
 ---
 
 # HOWTO run the Demo
