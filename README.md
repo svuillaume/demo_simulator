@@ -219,6 +219,20 @@ curl -H "X-Forwarded-For: 1.2.3.4" http://<victim_IP>:5000/client-ip
 
 ## Create new user to test brute force attack using hydra
 ### enable password authentication first :) 
+
+```
+sudo vi /etc/ssh/sshd_config.d/60-cloudimg-settings.conf
+PasswordAuthentication yes                                                 
+```
+
+                                                     
+
+
+```
+sudo apt update
+sudo apt install hydra -y
+```
+
 ```
 sudo useradd -m -s /bin/bash foo
 echo "foo:foo" | sudo chpasswd
