@@ -97,6 +97,8 @@ awk '{ print strftime("%Y-%m-%d %H:%M:%S"), $0; fflush(); }' | tee -a /tmp/socat
 
 ```
 socat TCP-LISTEN:4444,reuseaddr,fork SYSTEM:/tmp/socat-logger.sh
+or
+nc -lvnp 4444
 ```
 3. **Test tcp socket**
 
