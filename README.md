@@ -217,6 +217,14 @@ curl -H "X-Forwarded-For: 1.2.3.4" http://<victim_IP>:5000/client-ip
 
 > ⚠️ **Do NOT scan or connect to these IPs from outside your VPC. Use only for simulation/logging tests.**
 
+## Create new user to test brute force attack using hydra
+### enable password authentication first :) 
+```
+sudo useradd -m -s /bin/bash foo
+echo "foo:foo" | sudo chpasswd
+sudo usermod -aG sudo foo
+```
+
 ---
 
 ## Happy Demo!
